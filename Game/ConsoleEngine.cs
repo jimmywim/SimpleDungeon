@@ -55,7 +55,7 @@ public class ConsoleEngine
                 gameMenu.AddItem("I", "Show Inventory");
             }
 
-            response = gameMenu.Show();
+            response = this.UI.PresentMenu(gameMenu);
 
             switch (response)
             {
@@ -142,7 +142,7 @@ public class ConsoleEngine
 
         var result = this.UI.PresentMenu(itemsMenu);
 
-        if (!string.IsNullOrWhiteSpace(result))
+        if (!string.IsNullOrWhiteSpace(result) && result != KEY_ESCAPE)
         {
             var selectedItemIndex = int.Parse(result);
             var item = items.ElementAt(selectedItemIndex);
@@ -164,7 +164,7 @@ public class ConsoleEngine
 
         var result = this.UI.PresentMenu(itemsMenu);
 
-        if (!string.IsNullOrWhiteSpace(result))
+        if (!string.IsNullOrWhiteSpace(result) && result != KEY_ESCAPE)
         {
             var selectedItemIndex = int.Parse(result);
             var item = items.ElementAt(selectedItemIndex);

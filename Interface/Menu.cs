@@ -29,6 +29,32 @@ public class Menu
         });
     }
 
+    public string ShowOnWindow(Window window)
+    {
+        List<string> lines = new List<string>();
+        lines.Add($"{this.Title}: ");
+
+        foreach (var option in this.Options)
+        {
+            lines.Add($"\t{option.Key.ToUpper()} - {option.Name}");
+        }
+
+        lines.Add($"\tEsc - Exit");
+
+        window.Render(lines);
+
+        ConsoleKeyInfo input;
+        var possibleKeys = this.Options.Select(o => o.Key);
+
+        do
+        {
+            input = Console.ReadKey(true);
+
+            return input.KeyChar.ToString().ToUpper();
+        } while (possibleKeys.Contains(input.KeyChar.ToString().ToUpper()) && input.Key != ConsoleKey.Escape);
+
+    }
+
     public string Show(bool onBottom = false)
     {
         List<string> lines = new List<string>();
@@ -71,7 +97,7 @@ public class Menu
 
     private void RenderBottom(List<string> lines)
     {
-        Console.CursorTop = Console.WindowHeight - lines.Count - 2;
+        Console.CursorTop = Console.WindowHeight - lines.Count - 4;
         this.Render(lines);
     }
 }

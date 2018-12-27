@@ -6,14 +6,28 @@ using System.Text;
 public class ConsoleUI
 {
     private int topUISize = 0;
+    public Window TopWindow;
+    public Window BottomWindow;
+
+    public ConsoleUI()
+    {
+        this.TopWindow = new Window
+        {
+            Height = Console.WindowHeight / 2
+        };
+
+        this.BottomWindow = new Window
+        {
+            Height = Console.WindowHeight / 4,
+            OffsetTop = (int)Math.Floor(Console.WindowHeight * 0.75)
+        };
+    }
 
     public void PresentRoom(Room room)
     {
         Console.Clear();
-        
-        List<string> lines = new List<string>();
 
-        lines.Add(FillWindowWithCharacter('{', '-', '}'));
+        List<string> lines = new List<string>();
 
         lines.Add($"You are in {room.Name}");
         lines.Add(string.Empty);
@@ -43,9 +57,7 @@ public class ConsoleUI
             lines.Add("\t" + string.Join(',', room.Exits.Select(e => e.Direction.ToString())));
         }
 
-        lines.Add(FillWindowWithCharacter('{', '-', '}'));
-
-        this.RenderLines(lines.ToArray());
+        this.TopWindow.Render(lines);
     }
 
     public void PresentInventory(Player player)
@@ -59,49 +71,11 @@ public class ConsoleUI
             lines.Add($"\t{item.Name}");
         });
 
-        this.RenderLines(lines.ToArray());
+        this.BottomWindow.Render(lines);
     }
 
     public string PresentMenu(Menu menu)
     {
-        this.ClearMenu();
-        return menu.Show(true);
-    }
-
-    private void ClearMenu()
-    {
-        Console.CursorTop = this.topUISize;
-        do
-        {
-            Console.WriteLine();
-        } while (Console.CursorTop == Console.BufferHeight);
-    }
-
-    private string FillWindowWithCharacter(char start, char fill, char end)
-    {
-        StringBuilder sb = new StringBuilder();
-
-        int midWidth = Console.BufferWidth - 2;
-        sb.Append(start);
-        int i = 0;
-        do
-        {
-            sb.Append(fill);
-            i++;
-        } while (i < midWidth);
-
-        sb.Append(end);
-
-        return sb.ToString();
-    }
-
-    private void RenderLines(string[] lines)
-    {
-        for (int i = 0; i < lines.Length; i++)
-        {
-            Console.WriteLine(lines[i]);
-        }
-
-        this.topUISize = lines.Length;
+        return menu.ShowOnWindow(this.BottomWindow);
     }
 }
