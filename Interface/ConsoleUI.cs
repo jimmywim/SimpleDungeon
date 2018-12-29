@@ -9,6 +9,8 @@ public class ConsoleUI
     public Window TopWindow;
     public Window BottomWindow;
 
+    public Window PopupWindow;
+
     public ConsoleUI()
     {
         this.TopWindow = new Window
@@ -21,12 +23,18 @@ public class ConsoleUI
             Height = Console.WindowHeight / 4,
             OffsetTop = (int)Math.Floor(Console.WindowHeight * 0.75)
         };
+
+        this.PopupWindow = new Window
+        {
+            Height = Console.WindowHeight / 2,
+            Width = (int)Math.Floor(Console.WindowWidth * 0.75),
+            OffsetTop = (int)Math.Floor(Console.WindowHeight * 0.25),
+            OffsetLeft = (int)Math.Floor(Console.WindowWidth * 0.125)
+        };
     }
 
     public void PresentRoom(Room room)
     {
-        Console.Clear();
-
         List<string> lines = new List<string>();
 
         lines.Add($"You are in {room.Name}");
@@ -58,6 +66,7 @@ public class ConsoleUI
         }
 
         this.TopWindow.Render(lines);
+        this.Render();
     }
 
     public void PresentInventory(Player player)
@@ -71,11 +80,29 @@ public class ConsoleUI
             lines.Add($"\t{item.Name}");
         });
 
-        this.BottomWindow.Render(lines);
+        this.PopupWindow.Title = "Inventory";
+        this.PopupWindow.ShowDialog(lines);
+        this.Render();
     }
 
     public string PresentMenu(Menu menu)
     {
-        return menu.ShowOnWindow(this.BottomWindow);
+        //this.Render();
+        var result = menu.ShowOnWindow(this.BottomWindow);
+        this.Render();
+        return result;
+    }
+
+    private void Render()
+    {
+        Console.Clear();
+        this.TopWindow.Render();
+        this.BottomWindow.Render();
+
+        Console.CursorTop = this.TopWindow.Height;
+        do
+        {
+            Console.Write(new string(' ', Console.WindowWidth));
+        } while (Console.CursorTop < this.BottomWindow.OffsetTop);
     }
 }

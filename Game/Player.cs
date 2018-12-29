@@ -6,14 +6,19 @@ public class Player
     public Room CurrentRoom { get; set; }
     public List<Item> Inventory { get; set; }
 
-    public void Spawn(Room room) {
+    public void Spawn(Room room)
+    {
         this.CurrentRoom = room;
         this.Inventory = new List<Item>();
     }
 
-    public void Navigate(Direction direction) {
+    public void Navigate(Direction direction)
+    {
         var exit = this.CurrentRoom.Exits.FirstOrDefault(e => e.Direction == direction);
-        this.CurrentRoom = exit.Target;
+        if (exit != null)
+        {
+            this.CurrentRoom = exit.Target;
+        }
     }
 
     public void PickupItem(Item item)
