@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Menu
 {
     public string Title;
+    public string Help;
     public List<MenuItem> Options;
 
     public Menu()
@@ -32,7 +33,15 @@ public class Menu
     public string ShowOnWindow(Window window)
     {
         List<string> lines = new List<string>();
-        lines.Add($"{this.Title}: ");
+        if (!string.IsNullOrEmpty(this.Title))
+        {
+            lines.Add($"{this.Title}: ");
+        }
+
+        if (!string.IsNullOrEmpty(this.Help))
+        {
+            lines.Add($"{this.Help}: ");
+        }
 
         foreach (var option in this.Options)
         {
@@ -46,13 +55,15 @@ public class Menu
         ConsoleKeyInfo input;
         var possibleKeys = this.Options.Select(o => o.Key);
 
+        string returnedOption = string.Empty;
         do
         {
             input = Console.ReadKey(true);
 
-            return input.KeyChar.ToString().ToUpper();
+            returnedOption = input.KeyChar.ToString().ToUpper();
         } while (possibleKeys.Contains(input.KeyChar.ToString().ToUpper()) && input.Key != ConsoleKey.Escape);
 
+        return returnedOption;
     }
 
     public string Show(bool onBottom = false)

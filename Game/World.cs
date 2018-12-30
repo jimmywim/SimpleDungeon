@@ -5,21 +5,26 @@ using System.Runtime.Serialization;
 
 public class World
 {
-    public List<Room> AllRooms { get; set; }
+    public List<Scene> AllScenes { get; set; }
 
-    public Room StartRoom => this.AllRooms.First();
+    public Scene StartScene => this.AllScenes.First();
+
+    public World()
+    {
+        this.AllScenes = new List<Scene>();
+    }
 
     public void Create()
     {
         // TODO: Hydrate world from disk
-        this.AllRooms = new List<Room>();
-        var room1 = new Room
+        this.AllScenes = new List<Scene>();
+        var room1 = new Scene
         {
             Name = "Living Room",
             Description = "Comfy seating area"
         };
 
-        var room2 = new Room
+        var room2 = new Scene
         {
             Name = "Hallway",
         };
@@ -49,8 +54,8 @@ public class World
 
         room2.Exits.Add(door2);
 
-        this.AllRooms.Add(room1);
-        this.AllRooms.Add(room2);
+        this.AllScenes.Add(room1);
+        this.AllScenes.Add(room2);
 
         this.SaveWorld();
     }

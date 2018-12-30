@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class Room
+public class Scene
 {
     public string Name { get; set; }
     public string Description { get; set; }
@@ -8,7 +8,7 @@ public class Room
     public List<Item> Items { get; set; }
     public List<Character> Characters { get; set; }
 
-    public Room()
+    public Scene()
     {
         this.Exits = new List<Door>();
         this.Items = new List<Item>();

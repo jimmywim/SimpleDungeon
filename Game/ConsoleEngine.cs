@@ -5,8 +5,6 @@ using System.Text;
 
 public class ConsoleEngine
 {
-    public const string KEY_ESCAPE = "\u001b";
-
     public Player Player { get; set; }
     public World GameWorld { get; set; }
 
@@ -22,7 +20,7 @@ public class ConsoleEngine
         this.GameWorld.Create();
 
         this.Player = new Player();
-        this.Player.Spawn(this.GameWorld.StartRoom);
+        this.Player.Spawn(this.GameWorld.StartScene);
 
         this.UI.PresentRoom(this.Player.CurrentRoom);
 
@@ -38,7 +36,7 @@ public class ConsoleEngine
             Menu gameMenu = new Menu();
             gameMenu.Title = "Press";
 
-            Room room = this.Player.CurrentRoom;
+            Scene room = this.Player.CurrentRoom;
 
             if (room.Exits.Count > 0)
             {
@@ -71,7 +69,7 @@ public class ConsoleEngine
             }
 
             System.Threading.Thread.Sleep(100);
-        } while (response != KEY_ESCAPE);
+        } while (response != Constants.KEY_ESCAPE);
     }
 
     private void HandlePlayerAction(PlayerAction action)
@@ -142,7 +140,7 @@ public class ConsoleEngine
 
         var result = this.UI.PresentMenu(itemsMenu);
 
-        if (!string.IsNullOrWhiteSpace(result) && result != KEY_ESCAPE)
+        if (!string.IsNullOrWhiteSpace(result) && result != Constants.KEY_ESCAPE)
         {
             var selectedItemIndex = int.Parse(result);
             var item = items.ElementAt(selectedItemIndex);
@@ -164,7 +162,7 @@ public class ConsoleEngine
 
         var result = this.UI.PresentMenu(itemsMenu);
 
-        if (!string.IsNullOrWhiteSpace(result) && result != KEY_ESCAPE)
+        if (!string.IsNullOrWhiteSpace(result) && result != Constants.KEY_ESCAPE)
         {
             var selectedItemIndex = int.Parse(result);
             var item = items.ElementAt(selectedItemIndex);

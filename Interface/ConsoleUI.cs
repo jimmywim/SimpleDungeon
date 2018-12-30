@@ -33,7 +33,7 @@ public class ConsoleUI
         };
     }
 
-    public void PresentRoom(Room room)
+    public void PresentRoom(Scene room)
     {
         List<string> lines = new List<string>();
 

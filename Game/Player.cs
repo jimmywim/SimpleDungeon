@@ -3,10 +3,10 @@ using System.Linq;
 
 public class Player
 {
-    public Room CurrentRoom { get; set; }
+    public Scene CurrentRoom { get; set; }
     public List<Item> Inventory { get; set; }
 
-    public void Spawn(Room room)
+    public void Spawn(Scene room)
     {
         this.CurrentRoom = room;
         this.Inventory = new List<Item>();
