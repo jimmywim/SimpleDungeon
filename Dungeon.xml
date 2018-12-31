@@ -1,10 +1,1 @@
-<World z:Id="1" xmlns="http://schemas.datacontract.org/2004/07/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/"><AllScenes z:Id="2" z:Size="2"><Scene z:Id="3"><Characters z:Id="4" z:Size="0"/><Description z:Id="5">Comfy seating area</Description><Exits z:Id="6" z:Size="1"><Door z:Id="7"><Direction>Left</Direction><Initial z:Ref="3" i:nil="true"/><Target z:Id="8"><Characters z:Id="9" z:Size="0"/><Description i:nil="true"/><Exits z:Id="10" z:Size="1"><Door z:Id="11"><Direction>Back</Direction><Initial z:Ref="8" i:nil="true"/><Target z:Ref="3" i:nil="true"/></Door></Exits><Items z:Id="12" z:Size="1"><Item z:Id="13"><Description i:nil="true"/><Name z:Id="14">Coffee Cup</Name></Item></Items><Name z:Id="15">Hallway</Name></Target></Door></Exits><Items z:Id="16" z:Size="0"/><Name z:Id="17">Living Room</Name></Scene><Scene z:Ref="8" i:nil="true"/></AllScenes></World></Door>
-			</Exits>
-			<Items z:Id="14" z:Size="0" />
-			<Name z:Id="15">
-				Living Room
-			</Name>
-		</Room>
-		<Room z:Ref="8" i:nil="true" />
-	</AllRooms>
-</World>
+<World z:Id="1" xmlns="http://schemas.datacontract.org/2004/07/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/"><AllScenes z:Id="2" z:Size="2"><Scene z:Id="3"><Characters z:Id="4" z:Size="0"/><Description z:Id="5">Comfy seating area</Description><Exits z:Id="6" z:Size="1"><Door z:Id="7"><Direction>Left</Direction><Initial z:Ref="3" i:nil="true"/><Target z:Id="8"><Characters z:Id="9" z:Size="0"/><Description i:nil="true"/><Exits z:Id="10" z:Size="1"><Door z:Id="11"><Direction>Back</Direction><Initial z:Ref="8" i:nil="true"/><Target z:Ref="3" i:nil="true"/></Door></Exits><Id>9fff8b52-4571-4af4-b619-26f9eb91316f</Id><Items z:Id="12" z:Size="1"><Item z:Id="13"><Description i:nil="true"/><Name z:Id="14">Coffee Cup</Name></Item></Items><Name z:Id="15">Hallway</Name></Target></Door></Exits><Id>27b40f88-b553-48f9-8a06-d1fa9a611da0</Id><Items z:Id="16" z:Size="0"/><Name z:Id="17">Living Room</Name></Scene><Scene z:Ref="8" i:nil="true"/></AllScenes></World>

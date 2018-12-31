@@ -63,6 +63,12 @@ public class Menu
             returnedOption = input.KeyChar.ToString().ToUpper();
         } while (possibleKeys.Contains(input.KeyChar.ToString().ToUpper()) && input.Key != ConsoleKey.Escape);
 
+        var selectedItem = this.Options.FirstOrDefault((o) => o.Key == returnedOption);
+        if (selectedItem != null)
+        {
+            selectedItem.action();
+        }
+        
         return returnedOption;
     }
 

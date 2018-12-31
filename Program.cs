@@ -6,11 +6,11 @@ namespace SimpleDungeon
     {
         static void Main(string[] args)
         {
-            // ConsoleEngine engine = new ConsoleEngine();
-            // engine.Launch();
+            ConsoleEngine engine = new ConsoleEngine();
+            engine.Launch();
 
-            WorldCreator creator = new WorldCreator();
-            creator.ShowMainMenu();
+            //WorldCreator creator = new WorldCreator();
+            //creator.ShowMainMenu();
         }
     }
 }
