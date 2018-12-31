@@ -21,12 +21,33 @@ public class Menu
             Name = name
         });
     }
+
+    public void AddItem(string key, string name, Action action)
+    {
+      this.Options.Add(new MenuItem
+        {
+            Key = key,
+            Name = name,
+            Action = action
+        });  
+    }
+
     public void AddItem(string name)
     {
         this.Options.Add(new MenuItem
         {
             Key = (this.Options.Count).ToString(),
             Name = name
+        });
+    }
+
+    public void AddItem(string name, Action action)
+    {
+           this.Options.Add(new MenuItem
+        {
+            Key = (this.Options.Count).ToString(),
+            Name = name,
+            Action = action
         });
     }
 
@@ -64,9 +85,9 @@ public class Menu
         } while (!possibleKeys.Contains(input.KeyChar.ToString().ToUpper()) && input.Key != ConsoleKey.Escape);
 
         var selectedItem = this.Options.FirstOrDefault((o) => o.Key == returnedOption);
-        if (selectedItem != null && selectedItem.action != null)
+        if (selectedItem != null && selectedItem.Action != null)
         {
-            selectedItem.action();
+            selectedItem.Action();
         }
 
         return returnedOption;

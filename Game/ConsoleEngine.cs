@@ -40,33 +40,29 @@ public class ConsoleEngine
 
             if (room.Exits.Count > 0)
             {
-                gameMenu.AddItem("N", "Navigate");
+                gameMenu.AddItem("N", "Navigate", () => 
+                {
+                      this.HandlePlayerAction(PlayerAction.Navigate);
+                });
             }
 
             if (room.Items.Count > 0)
             {
-                gameMenu.AddItem("C", "Collect Items");
+                gameMenu.AddItem("C", "Collect Items", () => 
+                {
+                     this.HandlePlayerAction(PlayerAction.CollectItem);
+                });
             }
 
             if (this.Player.Inventory.Count > 0)
             {
-                gameMenu.AddItem("I", "Show Inventory");
+                gameMenu.AddItem("I", "Show Inventory", () => 
+                {
+                      this.HandlePlayerAction(PlayerAction.ShowInventory);
+                });
             }
 
             response = this.UI.PresentMenu(gameMenu);
-
-            switch (response)
-            {
-                case "N":
-                    this.HandlePlayerAction(PlayerAction.Navigate);
-                    break;
-                case "C":
-                    this.HandlePlayerAction(PlayerAction.CollectItem);
-                    break;
-                case "I":
-                    this.HandlePlayerAction(PlayerAction.ShowInventory);
-                    break;
-            }
 
             System.Threading.Thread.Sleep(100);
         } while (response != Constants.KEY_ESCAPE);
