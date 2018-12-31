@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameEditor.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -52,6 +53,16 @@ namespace GameEditor
             this.RefreshScenesListBox();
         }
 
+        public void SelectSceneAndEdit(Guid sceneId)
+        {
+            Scene scene = this.world.AllScenes.FirstOrDefault(s => s.Id == sceneId);
+            if (scene != null)
+            {
+                this.PopulateEditor(scene);
+                this.itemsListBox.SelectedIndex = this.itemsListBox.Items.IndexOf(scene);
+            }
+        }
+
         private void PopulateEditor(Scene scene)
         {
             this.titleTextBox.Text = scene.Name;
@@ -67,6 +78,19 @@ namespace GameEditor
             this.scenesListbox.DataSource = this.world.AllScenes;
             this.scenesListbox.DisplayMember = nameof(Scene.Name);
             this.scenesListbox.ValueMember = nameof(Scene.Id);
+        }
+
+        private void RefreshItemsListBox()
+        {
+            this.itemsListBox.DataSource = null;
+            this.itemsListBox.DataSource = this.GetThisScene().Items;
+            this.itemsListBox.DisplayMember = nameof(Item.Name);
+        }
+
+        private Scene GetThisScene()
+        {
+            Scene scene = (Scene)this.scenesListbox.SelectedItem;
+            return scene;
         }
 
         private void NavigateOrCreate(Scene scene, Direction direction)
@@ -88,7 +112,7 @@ namespace GameEditor
                 });
 
                 Direction reverseDirection = direction;
-                switch(direction)
+                switch (direction)
                 {
                     case Direction.Forward:
                         reverseDirection = Direction.Back;
@@ -113,7 +137,7 @@ namespace GameEditor
 
                 this.world.AllScenes.Add(newScene);
                 this.RefreshScenesListBox();
-                
+
                 this.scenesListbox.SelectedIndex = this.scenesListbox.Items.IndexOf(newScene);
 
                 this.PopulateEditor(newScene);
@@ -122,7 +146,7 @@ namespace GameEditor
 
         private void scenesListbox_SelectedValueChanged(object sender, EventArgs e)
         {
-            Scene scene = (Scene)this.scenesListbox.SelectedItem;
+            Scene scene = this.GetThisScene();
             if (scene != null)
             {
                 this.PopulateEditor(scene);
@@ -131,7 +155,7 @@ namespace GameEditor
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            Scene scene = (Scene)this.scenesListbox.SelectedItem;
+            Scene scene = this.GetThisScene();
             scene.Name = this.titleTextBox.Text;
             scene.Description = this.descriptionTextbox.Text;
 
@@ -140,36 +164,74 @@ namespace GameEditor
 
         private void forwardButton_Click(object sender, EventArgs e)
         {
-            Scene scene = (Scene)this.scenesListbox.SelectedItem;
+            Scene scene = this.GetThisScene();
             this.NavigateOrCreate(scene, Direction.Forward);
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            Scene scene = (Scene)this.scenesListbox.SelectedItem;
+            Scene scene = this.GetThisScene();
             this.NavigateOrCreate(scene, Direction.Back);
         }
 
         private void leftButton_Click(object sender, EventArgs e)
         {
-            Scene scene = (Scene)this.scenesListbox.SelectedItem;
+            Scene scene = this.GetThisScene();
             this.NavigateOrCreate(scene, Direction.Left);
         }
 
         private void rightButton_Click(object sender, EventArgs e)
         {
-            Scene scene = (Scene)this.scenesListbox.SelectedItem;
+            Scene scene = this.GetThisScene();
             this.NavigateOrCreate(scene, Direction.Right);
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Delete Scene?", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show("Delete Scene?", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                Scene scene = (Scene)this.scenesListbox.SelectedItem;
+                Scene scene = this.GetThisScene();
                 this.world.AllScenes.Remove(scene);
                 this.RefreshScenesListBox();
-            }                
+            }
+        }
+
+        private void addItemButton_Click(object sender, EventArgs e)
+        {
+            ItemEditor editor = new ItemEditor();
+            if (editor.ShowDialog() == DialogResult.OK)
+            {
+                Scene scene = this.GetThisScene();
+                scene.Items.Add(editor.Item);
+                this.RefreshItemsListBox();
+            }
+        }
+
+        private void editItemButton_Click(object sender, EventArgs e)
+        {
+            Item item = this.itemsListBox.SelectedItem as Item;
+            if (item != null)
+            {
+                ItemEditor editor = new ItemEditor(item);
+                if (editor.ShowDialog() == DialogResult.OK)
+                {
+                    item = editor.Item;
+                    this.RefreshItemsListBox();
+                }
+            }
+        }
+
+        private void removeItemButton_Click(object sender, EventArgs e)
+        {
+            Item item = this.itemsListBox.SelectedItem as Item;
+            if (item != null)
+            {
+                if(MessageBox.Show("Really Delete?", "Confirm", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    this.GetThisScene().Items.Remove(item);
+                    this.RefreshItemsListBox();
+                }
+            }
         }
     }
 }

@@ -48,6 +48,9 @@
             this.rightButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.addItemButton = new System.Windows.Forms.Button();
+            this.removeItemButton = new System.Windows.Forms.Button();
+            this.editItemButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.sceneEditorPanel.SuspendLayout();
             this.SuspendLayout();
@@ -113,6 +116,9 @@
             // 
             // sceneEditorPanel
             // 
+            this.sceneEditorPanel.Controls.Add(this.editItemButton);
+            this.sceneEditorPanel.Controls.Add(this.removeItemButton);
+            this.sceneEditorPanel.Controls.Add(this.addItemButton);
             this.sceneEditorPanel.Controls.Add(this.deleteButton);
             this.sceneEditorPanel.Controls.Add(this.backButton);
             this.sceneEditorPanel.Controls.Add(this.rightButton);
@@ -149,7 +155,7 @@
             this.itemsListBox.Location = new System.Drawing.Point(52, 160);
             this.itemsListBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.itemsListBox.Name = "itemsListBox";
-            this.itemsListBox.Size = new System.Drawing.Size(96, 121);
+            this.itemsListBox.Size = new System.Drawing.Size(168, 121);
             this.itemsListBox.TabIndex = 6;
             // 
             // label3
@@ -251,6 +257,36 @@
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
+            // addItemButton
+            // 
+            this.addItemButton.Location = new System.Drawing.Point(55, 287);
+            this.addItemButton.Name = "addItemButton";
+            this.addItemButton.Size = new System.Drawing.Size(46, 23);
+            this.addItemButton.TabIndex = 12;
+            this.addItemButton.Text = "Add";
+            this.addItemButton.UseVisualStyleBackColor = true;
+            this.addItemButton.Click += new System.EventHandler(this.addItemButton_Click);
+            // 
+            // removeItemButton
+            // 
+            this.removeItemButton.Location = new System.Drawing.Point(155, 286);
+            this.removeItemButton.Name = "removeItemButton";
+            this.removeItemButton.Size = new System.Drawing.Size(56, 23);
+            this.removeItemButton.TabIndex = 13;
+            this.removeItemButton.Text = "Remove";
+            this.removeItemButton.UseVisualStyleBackColor = true;
+            this.removeItemButton.Click += new System.EventHandler(this.removeItemButton_Click);
+            // 
+            // editItemButton
+            // 
+            this.editItemButton.Location = new System.Drawing.Point(109, 287);
+            this.editItemButton.Name = "editItemButton";
+            this.editItemButton.Size = new System.Drawing.Size(40, 23);
+            this.editItemButton.TabIndex = 14;
+            this.editItemButton.Text = "Edit";
+            this.editItemButton.UseVisualStyleBackColor = true;
+            this.editItemButton.Click += new System.EventHandler(this.editItemButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,6 +330,9 @@
         private System.Windows.Forms.Button rightButton;
         private System.Windows.Forms.Button leftButton;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button removeItemButton;
+        private System.Windows.Forms.Button addItemButton;
+        private System.Windows.Forms.Button editItemButton;
     }
 }
 
