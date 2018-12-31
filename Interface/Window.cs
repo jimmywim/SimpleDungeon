@@ -10,6 +10,8 @@ public class Window
     public int OffsetLeft;
     public string Title;
 
+    public int BackColor;
+
     private List<string> lines;
 
     public bool IsDialog
@@ -54,6 +56,9 @@ public class Window
     {
         this.lines = lines;
 
+        var originalBgColor = Console.BackgroundColor;
+        Console.BackgroundColor = (ConsoleColor)this.BackColor;
+
         string topBorder = this.FillWindowWithCharacter('+', '-', '+', true);
         Console.CursorTop = this.OffsetTop;
         Console.CursorLeft = this.OffsetLeft;
@@ -88,6 +93,8 @@ public class Window
 
         string bottomBorder = this.FillWindowWithCharacter('+', '-', '+');
         Console.Write(bottomBorder);
+
+        Console.BackgroundColor = originalBgColor;
     }
 
     private string FillWindowWithCharacter(char start, char fill, char end, bool showTitle = false)

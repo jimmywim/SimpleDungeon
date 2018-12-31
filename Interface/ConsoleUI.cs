@@ -29,7 +29,8 @@ public class ConsoleUI
             Height = Console.WindowHeight / 2,
             Width = (int)Math.Floor(Console.WindowWidth * 0.75),
             OffsetTop = (int)Math.Floor(Console.WindowHeight * 0.25),
-            OffsetLeft = (int)Math.Floor(Console.WindowWidth * 0.125)
+            OffsetLeft = (int)Math.Floor(Console.WindowWidth * 0.125),
+            BackColor = 1
         };
     }
 
